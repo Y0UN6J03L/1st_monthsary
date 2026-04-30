@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Monica ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    color: white;
+    overflow-x: hidden;
+}
+
+/* Floating Hearts */
+.heart {
+    position: fixed;
+    bottom: -10px;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+}
+
+/* Center Layout */
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+/* Password Screen */
+#lockScreen input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+button {
+    margin-top: 15px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    background: white;
+    color: #ff4b7d;
+    cursor: pointer;
+}
+
+/* Hidden */
+.hidden { display: none; }
+
+/* Chat UI */
+.chat {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+}
+
+.bubble {
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin: 10px 0;
+    max-width: 80%;
+}
+
+.me {
+    background: white;
+    color: #ff4b7d;
+    align-self: flex-end;
+}
+
+.her {
+    background: rgba(255,255,255,0.3);
+}
+
+/* Typewriter */
+.typewriter {
+    white-space: pre-wrap;
+    border-right: 2px solid white;
+    padding: 20px;
+}
+
+/* Gallery */
+.gallery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 20px;
+}
+
+.gallery img {
+    width: 90%;
+    max-width: 280px;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+}
+/* Fade */
+.fade { animation: fade 1.5s; }
+
+
+#slide {
+    width: 90%;
+    max-width: 320px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+@keyframes fade { from {opacity:0;} to {opacity:1;} }
+
+</style>
+</head>
+
+<body>
+
+<!-- LOCK SCREEN -->
+<div id="lockScreen" class="center">
+    <h2>🔐 A surprise for Monica</h2>
+    <p>Enter our special word 💖</p>
+    <input type="password" id="password">
+    <button onclick="unlock()">Unlock</button>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" class="hidden">
+
+    <!-- Chat Story -->
+    <div class="chat" id="chat"></div>
+
+    <!-- Letter -->
+    <div id="letter" class="hidden fade">
+        <h2 style="text-align:center;">💌 For You, Monica</h2>
+        <div class="typewriter" id="message"></div>
+    </div>
+
+    <!-- Gallery -->
+    <div id="gallery" class="hidden fade" style="text-align:center;">
+        <h2>📸 Our Memories</h2>
+        <img id="slide" src="photo1.jpg">
+    </div>
+
+    <!-- Surprise -->
+    <div id="final" class="hidden fade center">
+        <h1>💖 I Love You, Monica 💖</h1>
+        <p>Happy 1st Monthsary ❤️</p>
+    </div>
+
+</div>
+
+<!-- Music -->
+<audio autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// PASSWORD (change this)
+const correctPassword = "04012026";
+
+// Unlock
+function unlock() {
+    const input = document.getElementById("password").value.toLowerCase();
+    if(input === correctPassword){
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("app").classList.remove("hidden");
+        startExperience();
+    } else {
+        alert("Hint: Her name ❤️");
+    }
+}
+
+// Floating hearts
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}, 500);
+
+// Chat Story
+const chatData = [
+    {text: "Hi Monica ❤️", class: "me"},
+    {text: "I made something for you...", class: "me"},
+    {text: "Because today is special 💖", class: "me"},
+    {text: "Happy 1st Monthsary 🥺", class: "me"},
+];
+
+function startExperience(){
+    let i = 0;
+    function showChat(){
+        if(i < chatData.length){
+            const bubble = document.createElement("div");
+            bubble.className = "bubble " + chatData[i].class;
+            bubble.innerText = chatData[i].text;
+            document.getElementById("chat").appendChild(bubble);
+            i++;
+            setTimeout(showChat, 1200);
+        } else {
+            setTimeout(showLetter, 1500);
+        }
+    }
+    showChat();
+}
+
+// Typewriter Letter
+const text = `Happy 1st Monthsary, my love ❤️
+
+It’s only been a month, but it already feels like you’ve become such an important part of my life. In just a short time, you’ve given me so much happiness, comfort, and love that I never expected to feel this deeply.
+
+Thank you for every laugh, every moment, and every little thing you do that makes my days brighter. Being with you feels right, and I’m so grateful that we started this journey together.
+
+This is just our first month, but I’m already looking forward to all the months and years we’ll celebrate side by side. I promise to keep choosing you, loving you, and growing with you.
+
+I love you so much. Happy 1st monthsary, my love 💖`;
+
+function showLetter(){
+    document.getElementById("letter").classList.remove("hidden");
+
+    let i = 0;
+    function type(){
+        if(i < text.length){
+            document.getElementById("message").innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, 25);
+        } else {
+            setTimeout(showGallery, 1500);
+        }
+    }
+    type();
+}
+
+// Slideshow
+const images = ["photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg","photo5.jpg"];
+let index = 0;
+
+function showGallery(){
+    document.getElementById("gallery").classList.remove("hidden");
+
+    setInterval(() => {
+        index = (index + 1) % images.length;
+        document.getElementById("slide").src = images[index];
+    }, 2000);
+
+    setTimeout(showFinal, 8000);
+}
+
+// Final
+function showFinal(){
+    document.getElementById("final").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
